@@ -1,6 +1,5 @@
 #define Output 3
 #define Input A0
-#define readDelay 7
 
 // MH - Feb 14 2022,  update the values to match the VGA monitor from Huiazen
 // - Previous values were according to the MacBook pro
@@ -31,11 +30,9 @@ int sumofarray(int a[],int n){
 void setup() {
   // put your setup code here, to run once:
 //Serial.begin(9600);
-delay(200);
+delay(200); //Delay at the beginning of code
 
 pinMode(Output, OUTPUT);
-pinMode(Output, OUTPUT);
-digitalWrite(readDelay,LOW);
 pinMode(Input, INPUT);
 
 //Serial.println("Begin");
@@ -44,7 +41,6 @@ pinMode(Input, INPUT);
 void loop(){
   //Serial.println("Go back to beginning of loop");
 
-  digitalWrite(readDelay, HIGH);  //Pin HIGH before making Reads
   for(j=0; j<nsum; j++){
     //Serial.print("Sample ");  //These serial writes inside the loop introduce a significant time delay
     //Serial.print(j + 1);
@@ -53,8 +49,6 @@ void loop(){
     //Serial.println(in[j]);
 
   }
-
-  digitalWrite(readDelay, LOW);   //Pin LOW after making analogReads
 
   s = sumofarray(in,nsum);
   ave = s/nsum;
