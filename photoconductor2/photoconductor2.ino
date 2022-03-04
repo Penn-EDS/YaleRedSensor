@@ -9,7 +9,7 @@
 // int Min = 86;    // ==> 420mV
 
 int Max = 40; //1023 total bits resolution. Max value for red
-int Min = 25; //1023 total bits resolution. Max value for red
+int Min = 28; //1023 total bits resolution. Max value for red
 int s = 0;    //Variable to store the sum of the array
 int ave = 0;  //Variable to store ave
 int j = 0;    //Variable to iterate readings
@@ -43,7 +43,7 @@ Serial.println("Begin");
 
 void loop(){
   Serial.println("Go back to beginning of loop");
-  
+
   digitalWrite(readDelay, HIGH);  //Pin HIGH before making Reads
   for(j=0; j<nsum; j++){
     //Serial.print("Sample ");  //These serial writes inside the loop introduce a significant time delay
@@ -51,7 +51,7 @@ void loop(){
     in[j] = analogRead(Input);
     //Serial.print(" is ");
     //Serial.println(in[j]);
-    
+
   }
 
   digitalWrite(readDelay, LOW);   //Pin LOW after making analogReads
@@ -65,10 +65,13 @@ void loop(){
   if((ave <= Max) && (ave >= Min)){
     digitalWrite(Output, HIGH);
     Serial.println("Entered High");
+  } else{
+      s = sumofarray(in,nsum);
+      ave = s/nsum;
+
+      if ((ave > Max) || (ave < Min)){  //Double check if it is not red
+        digitalWrite(Output,LOW);
+        Serial.println("Entered Low");
+      }
   }
-  else{
-    digitalWrite(Output,LOW);
-    Serial.println("Entered Low");
-  }
-delay(100);
 }
