@@ -10,11 +10,11 @@
 
 int Max = 40; //1023 total bits resolution. Max value for red
 int Min = 25; //1023 total bits resolution. Max value for red
-int in[10];   //Variable for the A0 value
 int s = 0;    //Variable to store the sum of the array
 int ave = 0;  //Variable to store ave
 int j = 0;    //Variable to iterate readings
-int nsum = 10; //Number of samples for average
+const int nsum = 100; //Number of samples for average
+int in[nsum];   //Variable for the A0 value
 
 
 
@@ -42,9 +42,15 @@ Serial.println("Begin");
 }
 
 void loop(){
+  Serial.println("Go back to beginning of loop");
+
   digitalWrite(readDelay, HIGH);  //Pin HIGH before making Reads
   for(j=0; j<nsum; j++){
+    //Serial.print("Sample ");  //These serial writes inside the loop introduce a significant time delay
+    //Serial.print(j + 1);
     in[j] = analogRead(Input);
+    //Serial.println(in[j]);
+
   }
 
   digitalWrite(readDelay, LOW);   //Pin LOW after making analogReads
@@ -60,6 +66,7 @@ void loop(){
     Serial.println("Entered High");
   }
   else{
+    if()
     digitalWrite(Output,LOW);
     Serial.println("Entered Low");
   }
