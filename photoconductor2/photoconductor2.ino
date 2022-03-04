@@ -34,7 +34,7 @@ Serial.begin(9600);
 delay(200);
 
 pinMode(Output, OUTPUT);
-pinMode(Output, OUTPUT);
+pinMode(readDelay, OUTPUT);
 digitalWrite(readDelay,LOW);
 pinMode(Input, INPUT);
 
@@ -70,5 +70,4 @@ void loop(){
     digitalWrite(Output,LOW);
     Serial.println("Entered Low");
   }
-delay(100);
 }
