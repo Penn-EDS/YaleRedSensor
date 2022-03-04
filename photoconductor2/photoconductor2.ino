@@ -1,6 +1,6 @@
 #define Output 3
 #define Input A0
-#define readDelay 12
+#define readDelay 7
 
 // MH - Feb 14 2022,  update the values to match the VGA monitor from Huiazen
 // - Previous values were according to the MacBook pro
