@@ -18,12 +18,22 @@ int in[nsum];   //Variable for the A0 value
 int sumofarray(int a[],int n){
    int i,sum=0;
 
-    for(i=0; i<n; i++){
+   for(i=0; i<n; i++){
          sum+=a[i];
-    }
+   }
 
   return sum;
  }
+
+void sampling(){
+ for(j=0; j<nsum; j++){
+   //Serial.print("Sample ");  //These serial writes inside the loop introduce a significant time delay
+   //Serial.print(j + 1);
+   in[j] = analogRead(Input);
+   //Serial.print(" is ");
+   //Serial.println(in[j]);
+ }
+}
 
 void setup() {
   // put your setup code here, to run once:
@@ -39,15 +49,7 @@ pinMode(Input, INPUT);
 void loop(){
   //Serial.println("Go back to beginning of loop");
 
-  for(j=0; j<nsum; j++){
-
-    //Serial.print("Sample ");  //These serial writes inside the loop introduce a significant time delay
-    //Serial.print(j + 1);
-    in[j] = analogRead(Input);
-    //Serial.print(" is ");
-    //Serial.println(in[j]);
-  }
-
+  sampling();
   s = sumofarray(in,nsum);
   ave = s/nsum;
 
@@ -61,9 +63,7 @@ void loop(){
   }
   else{
 
-    for(j=0; j<nsum; j++){  //Collecting samples a second time
-      in[j] = analogRead(Input);
-  }
+    sampling();
     s = sumofarray(in,nsum);
     ave = s/nsum;
 
