@@ -1,11 +1,11 @@
-#define Output 3
-#define Input A0
-
 // MH - Feb 14 2022,  update the values to match the VGA monitor from Huiazen
 // - Previous values were according to the MacBook pro
 // - Values previously programmed were
 // int Max = 163;   // ==> 800mV
 // int Min = 86;    // ==> 420mV
+
+#define Output 3
+#define Input A0
 
 int Max = 40; //1023 total bits resolution. Max value for red
 int Min = 28; //1023 total bits resolution. Max value for red
@@ -14,8 +14,6 @@ int ave = 0;  //Variable to store ave
 int j = 0;    //Variable to iterate readings
 const int nsum = 10; //Number of samples for average
 int in[nsum];   //Variable for the A0 value
-
-
 
 int sumofarray(int a[],int n){
    int i,sum=0;
@@ -42,12 +40,12 @@ void loop(){
   //Serial.println("Go back to beginning of loop");
 
   for(j=0; j<nsum; j++){
+
     //Serial.print("Sample ");  //These serial writes inside the loop introduce a significant time delay
     //Serial.print(j + 1);
     in[j] = analogRead(Input);
     //Serial.print(" is ");
     //Serial.println(in[j]);
-
   }
 
   s = sumofarray(in,nsum);
@@ -57,15 +55,21 @@ void loop(){
   //Serial.println(ave);
 
   if((ave <= Max) && (ave >= Min)){
+
     digitalWrite(Output, HIGH);
     //Serial.println("Entered High");
-  } else{
-      s = sumofarray(in,nsum);
-      ave = s/nsum;
+  }
+  else{
 
-      if ((ave > Max) || (ave < Min)){  //Double check if it is not red
-        digitalWrite(Output,LOW);
+    for(j=0; j<nsum; j++){  //Collecting samples a second time
+      in[j] = analogRead(Input);
+  }
+    s = sumofarray(in,nsum);
+    ave = s/nsum;
+
+    if ((ave > Max) || (ave < Min)){  //Double check if it is not red
+      digitalWrite(Output,LOW);
         //Serial.println("Entered Low");
-      }
+    }
   }
 }
