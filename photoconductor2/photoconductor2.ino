@@ -8,11 +8,11 @@
 #define Input A0
 
 int Max = 40; //1023 total bits resolution. Max value for red
-int Min = 28; //1023 total bits resolution. Max value for red
+int Min = 25; //1023 total bits resolution. Max value for red
 int s = 0;    //Variable to store the sum of the array
 int ave = 0;  //Variable to store ave
 int j = 0;    //Variable to iterate readings
-const int nsum = 10; //Number of samples for average
+const int nsum = 100; //Number of samples for average
 int in[nsum];   //Variable for the A0 value
 
 int sumofarray(int a[],int n){
@@ -63,13 +63,13 @@ void loop(){
   }
   else{
 
-    sampling();
-    s = sumofarray(in,nsum);
-    ave = s/nsum;
+    //sampling();
+    //s = sumofarray(in,nsum);
+    //ave = s/nsum;
 
-    if ((ave > Max) || (ave < Min)){  //Double check if it is not red
+    //if ((ave > Max) || (ave < Min)){  //Double check if it is not red
       digitalWrite(Output,LOW);
         //Serial.println("Entered Low");
-    }
+    //}
   }
 }
